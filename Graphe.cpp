@@ -19,7 +19,7 @@ namespace TP2
 	//Mettez l'implémentation de vos méthodes ici.
 		// Constructeur
 	Graphe::Graphe(size_t nbSommets):
-			m_nbSommets(nbSommets)
+			m_nbSommets(nbSommets), m_nbArcs(0)
 	{
 		this->resize(m_nbSommets);
 	}
@@ -39,6 +39,7 @@ namespace TP2
 		for(size_t iter = 0; iter < m_nbSommets; iter++)
 		{
 			m_sommets.push_back("");
+			m_listesAdj.push_back({});
 		}
 	}
 
@@ -65,10 +66,13 @@ namespace TP2
 		{
 			throw std::logic_error("<Graphe::ajouterArc> La source ou la destination est illegale");
 		}
+		m_nbArcs++;
 		Ponderations p(duree, cout, ns);
 		Arc nouvelArc (destination, p);
-
+		std::cout << "\nAll Hell Break Loose\n";
 		m_listesAdj[source].push_back(nouvelArc);
+		std::cout << "\nI am OK\n";
+
 
 	}
 
