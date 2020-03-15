@@ -66,6 +66,10 @@ namespace TP2
 		{
 			throw std::logic_error("<Graphe::ajouterArc> La source ou la destination est illegale");
 		}
+		if(arcExiste(source, destination))
+        {
+		    throw std::logic_error("<Graphe::ajouterArc> L'arc existe deja.");
+        }
 		m_nbArcs++;
 		Ponderations p(duree, cout, ns);
 		Arc nouvelArc (destination, p);
@@ -84,13 +88,20 @@ namespace TP2
 
 	}
 
+
 	// Vérifie si un arc existe
 	// Exception logic_error si source ou destination supérieur à nbSommets
 	bool Graphe::arcExiste(size_t source, size_t destination) const
 	{
-
-		//TODO - Update
-		return true;
+        bool arcTrouvee = false;
+        size_t i = 0;
+        for(auto iter = m_listesAdj[source].begin(); iter != m_listesAdj[source].end(); iter++)
+        {
+            if(iter->destination == destination) {
+                arcTrouvee = true;
+            }
+        }
+		return arcTrouvee;
 	}
 
 	// Retourne la liste de successeurs d'un sommmet
@@ -104,10 +115,15 @@ namespace TP2
 	// Retourne le nom d'un sommet
 	// Exception logic_error si sommet supérieur à nbSommets
 	std::string Graphe::getNomSommet(size_t sommet) const
-	{
-
-		//TODO
-		return "ABC";
+    {
+	    if(sommet < m_nbSommets && sommet > 0)
+        {
+            return m_sommets[sommet];
+        }
+	    else
+        {
+	        throw std::logic_error("<Graphe::getNomSommet> Numero de sommet invalide.");
+        }
 	}
 
 	// Retourne le numéro d'un sommet
