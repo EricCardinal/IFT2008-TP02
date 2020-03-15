@@ -64,16 +64,16 @@ namespace TP2
 	{
 		if(source >= m_nbSommets || destination >= m_nbSommets)
 		{
-			throw std::logic_error("<Graphe::ajouterArc> La source ou la destination est illegale");
+			throw std::logic_error("<Graphe::ajouterArc> La source ou la destination est illegale\n");
+		}
+		if(arcExiste(source,destination))
+		{
+			throw std::logic_error("<Graphe::AjouterArc> L'arc existe deja.\n");
 		}
 		m_nbArcs++;
 		Ponderations p(duree, cout, ns);
 		Arc nouvelArc (destination, p);
-		std::cout << "\nAll Hell Break Loose\n";
 		m_listesAdj[source].push_back(nouvelArc);
-		std::cout << "\nI am OK\n";
-
-
 	}
 
 	// Supprime un arc du graphe
@@ -88,9 +88,17 @@ namespace TP2
 	// Exception logic_error si source ou destination supérieur à nbSommets
 	bool Graphe::arcExiste(size_t source, size_t destination) const
 	{
-
-		//TODO - Update
-		return true;
+		bool existe = false;
+		size_t iter = 0;
+		while (!existe && iter < m_nbSommets)
+		{
+			if(destination == m_listesAdj[source].front().destination)
+			{
+				existe = true;
+			}
+			iter++;
+		}
+		return existe;
 	}
 
 	// Retourne la liste de successeurs d'un sommmet
