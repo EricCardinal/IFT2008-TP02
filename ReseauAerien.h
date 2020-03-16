@@ -15,11 +15,14 @@
 #include <stdexcept>
 #include <climits>
 #include <vector>
+#include <queue>
 #include <map>
 
 
 #ifndef _RESEAUAERIEN__H
 #define _RESEAUAERIEN__H
+
+const size_t MAX_SIZE_T = (size_t)-1;
 
 namespace TP2
 {

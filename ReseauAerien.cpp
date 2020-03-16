@@ -90,6 +90,7 @@ namespace TP2
     // Destructeur
     ReseauAerien::~ReseauAerien()
     {
+    	//TODO
     }
 
     // Change la taille du réseau en utilisant un nombre de villes = nouvelleTaille
@@ -103,6 +104,43 @@ namespace TP2
     // Exception std::logic_error si origine et/ou destination absent du réseau
     Chemin ReseauAerien::rechercheCheminDijkstra(const std::string& origine, const std::string& destination, bool dureeCout) const
     {
+    	// true - duree
+    	// false - cout
+    	std::vector<size_t> sommetsSolutionnes;
+    	std::vector<size_t> sommetPrecedent;
+    	std::queue<size_t> sommetsAttente;
+    	std::vector<float> cout;
+
+    	// poid et preceden de la source
+    	cout.push_back(0.0);
+    	sommetPrecedent.push_back(0);
+    	// Ajouter la source a la file
+    	size_t unSommet = m_unReseau.getNumeroSommet(origine);
+    	float unCout;
+    	sommetsAttente.push(unSommet);
+    	while(!sommetsAttente.empty())
+    	{
+    		for(auto iter = m_unReseau.m_listesAdj[unSommet].begin(); iter != m_unReseau.m_listesAdj[unSommet].end(); iter++)
+    		{
+    			if(dureeCout)
+    			{
+    				unCout = m_unReseau.getPonderationsArc(m_unReseau.getNumeroSommet(origine), m_unReseau.getNumeroSommet(destination)).duree;
+    			}
+    			else
+    			{
+    				unCout = m_unReseau.getPonderationsArc(m_unReseau.getNumeroSommet(origine), m_unReseau.getNumeroSommet(destination)).cout;
+    			}
+    			cout.push_back(unCout);
+    		}
+    		sommetsAttente.pop();
+    	}
+
+
+
+
+
+
+
     }
 
     // Retourne le plus court chemin selon l'algorithme Bellman-Ford

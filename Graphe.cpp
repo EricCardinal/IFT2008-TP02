@@ -94,10 +94,10 @@ namespace TP2
 	bool Graphe::arcExiste(size_t source, size_t destination) const
 	{
         bool arcTrouvee = false;
-        size_t i = 0;
         for(auto iter = m_listesAdj[source].begin(); iter != m_listesAdj[source].end(); iter++)
         {
-            if(iter->destination == destination) {
+            if(iter->destination == destination)
+            {
                 arcTrouvee = true;
             }
         }
@@ -108,7 +108,19 @@ namespace TP2
 	// Exception logic_error si sommet supérieur à nbSommets
 	std::vector<size_t> Graphe::listerSommetsAdjacents(size_t sommet) const
 	{
-
+		if(sommet < m_nbSommets && sommet > 0)
+		{
+			std::vector<size_t> sommetsAdjacents;
+			for(auto iter = m_sommets.begin(); iter != m_sommets.end(); iter++)
+			{
+				sommetsAdjacents.push_back(getNumeroSommet(*iter));
+			}
+			return sommetsAdjacents;
+		}
+		else
+		{
+			throw std::logic_error("<Graphe::ListerSommetsAdjacents> Sommet invalide.");
+		}
 
 	}
 
@@ -159,7 +171,20 @@ namespace TP2
 	// Exception logic_error si source ou destination supérieur à m_nbSommets
 	Ponderations Graphe::getPonderationsArc(size_t source, size_t destination) const
 	{
-
+        if(source < m_nbSommets && destination < m_nbSommets && source > 0 && destination > 0)
+        {
+    		for(auto iter = m_listesAdj[source].begin(); iter != m_listesAdj[source].end(); iter++)
+            {
+                if(iter->destination == destination)
+                {
+                    return iter->poids;
+                }
+            }
+        }
+        else
+        {
+        	throw std::logic_error("<Graphe::getPonderationArc> Source et/ou destination invalide");
+        }
 	}
 
 }//Fin du namespace
